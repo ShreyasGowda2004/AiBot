@@ -1,0 +1,81 @@
+.execution-console-overlay { position: fixed; inset: 0; z-index: 12000; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+/* Backdrop placed behind console. If blur causes perceived fuzziness, you can remove backdrop-filter line. */
+.execution-console-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(2px); z-index: 0; }
+/* Elevate console above backdrop so it is crisp, not blurred */
+.execution-console { position: relative; z-index: 1; width: min(1200px, 96vw); height: 82vh; background: #161616; color: #f4f4f4; border: 1px solid #393939; border-radius: 6px; padding: 0; display: flex; flex-direction: column; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+/* Force Carbon inputs in dark panel to use light text */
+.execution-console input, .execution-console textarea, .execution-console select { color:#f4f4f4; }
+.execution-console .cds--select-input, .execution-console .cds--text-input { background:#1f1f1f; }
+/* Ensure all interactive text elements show high-contrast text even when not focused */
+.execution-console .cds--text-input,
+.execution-console .cds--text-input input,
+.execution-console .cds--select-input,
+.execution-console select.cds--select-input,
+.execution-console .kv-input input,
+.execution-console .url-input input,
+.execution-console .raw-body-textarea textarea {
+	background:#1f1f1f !important;
+	color:#f4f4f4 !important;
+	-webkit-text-fill-color:#f4f4f4; /* Safari */
+	border-color:#525252 !important;
+}
+.execution-console .cds--text-input:disabled,
+.execution-console .cds--text-input input:disabled,
+.execution-console select.cds--select-input:disabled {
+	background:#262626 !important;
+	color:#8d8d8d !important;
+	-webkit-text-fill-color:#8d8d8d;
+}
+/* Placeholder visibility */
+.execution-console ::placeholder { color:#8d8d8d; opacity:1; }
+/* Dropdown options */
+.execution-console select.cds--select-input option { background:#161616; color:#f4f4f4; }
+/* Utility: add class no-blur on overlay to remove any background blur quickly */
+.execution-console-overlay.no-blur .execution-console-backdrop { backdrop-filter: none; }
+.exec-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid #262626; background:#1f1f1f; }
+.exec-title { font-weight: 600; display:flex; align-items:center; }
+.exec-close-btn { background: none; border: none; color: #f4f4f4; cursor: pointer; padding: 4px; border-radius:4px; }
+.exec-close-btn:hover { background:#262626; }
+.exec-section { padding: 0.75rem 1rem 1rem; overflow: auto; }
+.request-builder { border-bottom: 1px solid #262626; }
+.request-top-row { display:grid; grid-template-columns: 120px 1fr 120px; gap:0.75rem; margin-bottom:1rem; align-items:center; }
+.method-select .cds--select-input { background:#ffffff !important; color:#161616 !important; }
+.method-select .cds--select-input:focus { outline:2px solid #0f62fe; }
+/* Force the Carbon select chevron arrow to white for visibility */
+.method-select .cds--select__arrow { fill:#ffffff !important; color:#ffffff !important; }
+/* If arrow is an svg path nested deeper */
+.method-select .cds--select__arrow svg path { fill:#ffffff !important; }
+.url-input input { background:#1f1f1f; color:#ffffff; border-color:#525252; }
+.row-groups { display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; }
+.table-section { background:#1f1f1f; border:1px solid #262626; border-radius:4px; padding:0.5rem 0.5rem 0.25rem; display:flex; flex-direction:column; }
+.table-section h5 { color:#f4f4f4; font-weight:600; font-size:0.75rem; letter-spacing:0.5px; text-transform:uppercase; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem; }
+.kv-rows { max-height:140px; overflow:auto; }
+.kv-row { display:grid; grid-template-columns: 24px 1fr 1fr 32px; gap:0.25rem; align-items:center; margin-bottom:0.25rem; }
+.kv-input input { background:#1f1f1f; color:#f4f4f4; border-color:#525252; }
+.row-remove-btn { background:#262626; color:#f4f4f4; border:1px solid #393939; border-radius:4px; cursor:pointer; height:32px; display:flex; align-items:center; justify-content:center; }
+.row-remove-btn:hover { background:#393939; }
+.body-editor { margin-top:0.75rem; background:#1f1f1f; border:1px solid #262626; border-radius:4px; padding:0.5rem; }
+.body-header { display:flex; align-items:center; justify-content:space-between; font-size:0.75rem; color:#c6c6c6; margin-bottom:0.25rem; }
+.body-controls { display:flex; align-items:center; gap:0.5rem; }
+.body-mode-select { background:#1f1f1f; color:#f4f4f4; border:1px solid #525252; height:24px; font-size:0.65rem; border-radius:4px; padding:0 4px; }
+.body-mode-select:focus { outline:2px solid #0f62fe; }
+.body-toggle-btn { background:#262626; color:#f4f4f4; border:1px solid #393939; border-radius:4px; height:24px; padding:0 8px; font-size:0.65rem; cursor:pointer; }
+.body-toggle-btn:hover { background:#393939; }
+.body-hint { margin-top:4px; font-size:0.6rem; color:#8d8d8d; }
+.raw-body-textarea textarea, .raw-body-textarea { background:#1f1f1f; color:#ffffff; border-color:#525252; }
+.placeholder { font-size:0.75rem; color:#c6c6c6; padding:0.5rem 0; }
+.placeholder.small { padding:0.25rem 0; }
+.response-viewer { flex:1; display:flex; flex-direction:column; }
+.response-panels { display:grid; grid-template-columns: 280px 1fr; gap:0.75rem; }
+.response-headers { background:#1f1f1f; border:1px solid #262626; border-radius:4px; padding:0.5rem; overflow:auto; }
+.response-body { background:#1f1f1f; border:1px solid #262626; border-radius:4px; padding:0.5rem; overflow:auto; }
+.headers-list { list-style:none; padding:0; margin:0; font-size:0.7rem; }
+.headers-list li { margin-bottom:0.25rem; word-break:break-all; }
+.code-wrapper pre, .code-wrapper { background:#262626 !important; }
+.meta-badges { margin-left:0.75rem; display:inline-flex; gap:0.25rem; }
+.inline-toggle { font-size:0.65rem; display:flex; align-items:center; gap:0.25rem; cursor:pointer; }
+.hostname-warning { margin-top: -0.5rem; margin-bottom: 0.75rem; }
+
+@media (max-width: 1200px) { .response-panels { grid-template-columns: 1fr; } .request-top-row { grid-template-columns: 100px 1fr 100px; } .row-groups { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .execution-console { height: 94vh; } .request-top-row { grid-template-columns: 90px 1fr 90px; } }
