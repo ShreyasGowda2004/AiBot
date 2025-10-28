@@ -101,10 +101,19 @@ check_install_java() {
     print_status "Installing Java 17..."
     if [[ "$OS" == "macos" ]]; then
         brew install openjdk@17
-        # Link Java for macOS
-        sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
-        echo 'export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc
-        export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+        
+        # Link Java for macOS (handle both Intel and Apple Silicon)
+        if [[ $(uname -m) == "arm64" ]]; then
+            # Apple Silicon
+            sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk 2>/dev/null || true
+            echo 'export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc
+            export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+        else
+            # Intel
+            sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk 2>/dev/null || true
+            echo 'export PATH="/usr/local/opt/openjdk@17/bin:$PATH"' >> ~/.zshrc
+            export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+        fi
     elif [[ "$OS" == "debian" ]]; then
         sudo apt-get update
         sudo apt-get install -y openjdk-17-jdk
@@ -138,8 +147,17 @@ check_install_node() {
     print_status "Installing Node.js 20 LTS..."
     if [[ "$OS" == "macos" ]]; then
         brew install node@20
-        echo 'export PATH="/opt/homebrew/opt/node@20/bin:$PATH"' >> ~/.zshrc
-        export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+        
+        # Handle path for both Intel and Apple Silicon
+        if [[ $(uname -m) == "arm64" ]]; then
+            # Apple Silicon
+            echo 'export PATH="/opt/homebrew/opt/node@20/bin:$PATH"' >> ~/.zshrc
+            export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+        else
+            # Intel
+            echo 'export PATH="/usr/local/opt/node@20/bin:$PATH"' >> ~/.zshrc
+            export PATH="/usr/local/opt/node@20/bin:$PATH"
+        fi
     elif [[ "$OS" == "debian" ]]; then
         curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
         sudo apt-get install -y nodejs
@@ -236,10 +254,44 @@ check_install_ollama() {
     # Install Ollama based on OS
     print_status "Installing Ollama..."
     if [[ "$OS" == "macos" ]]; then
-        print_info "Downloading Ollama for macOS..."
-        curl -fsSL https://ollama.ai/install.sh | sh
+        print_info "Installing Ollama for macOS..."
+        
+        # Try Homebrew first (most reliable)
+        if command -v brew &> /dev/null; then
+            print_info "Using Homebrew to install Ollama..."
+            brew install ollama
+            print_success "Ollama installed via Homebrew"
+        else
+            # Fallback to direct download
+            print_info "Downloading Ollama app..."
+            if ! command -v curl &> /dev/null; then
+                print_error "curl is required but not found"
+                exit 1
+            fi
+            
+            # Download the macOS app
+            OLLAMA_URL="https://ollama.com/download/Ollama-darwin.zip"
+            if curl -fsSL "$OLLAMA_URL" -o /tmp/Ollama.zip; then
+                if unzip -q /tmp/Ollama.zip -d /tmp/ 2>/dev/null; then
+                    sudo cp -R /tmp/Ollama.app /Applications/ 2>/dev/null || {
+                        print_error "Failed to copy Ollama to /Applications. Need sudo access."
+                        rm -rf /tmp/Ollama.zip /tmp/Ollama.app
+                        exit 1
+                    }
+                    rm -rf /tmp/Ollama.zip /tmp/Ollama.app
+                    print_success "Ollama installed to /Applications"
+                else
+                    print_error "Failed to extract Ollama. Please install manually from https://ollama.com/download"
+                    rm -rf /tmp/Ollama.zip
+                    exit 1
+                fi
+            else
+                print_error "Failed to download Ollama. Please install manually from https://ollama.com/download"
+                exit 1
+            fi
+        fi
     elif [[ "$OS" == "linux" ]] || [[ "$OS" == "debian" ]] || [[ "$OS" == "redhat" ]]; then
-        print_info "Downloading Ollama for Linux..."
+        print_info "Installing Ollama for Linux..."
         curl -fsSL https://ollama.ai/install.sh | sh
     else
         print_error "Please install Ollama manually from https://ollama.ai"
@@ -248,7 +300,18 @@ check_install_ollama() {
     
     print_success "Ollama installed"
     print_info "Starting Ollama service..."
-    ollama serve &> /dev/null &
+    if [[ "$OS" == "macos" ]]; then
+        # Start Ollama app on macOS
+        open -a Ollama 2>/dev/null &
+        sleep 2
+        # If app didn't start, try CLI
+        if ! curl -s http://localhost:11434/api/tags &> /dev/null; then
+            nohup ollama serve &> /dev/null &
+        fi
+    else
+        # Start Ollama on Linux
+        nohup ollama serve &> /dev/null &
+    fi
     sleep 3
 }
 

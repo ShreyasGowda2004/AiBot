@@ -540,33 +540,9 @@
   background: var(--cds-layer-hover);
 }
 
-/* Professional blue glow effect below the input */
+/* Disable inner typing-box glow */
 .input-glow {
-  position: absolute;
-  left: 50%;
-  bottom: 1.5rem;
-  transform: translateX(-50%);
-  width: 60%;
-  max-width: 600px;
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(15, 98, 254, 0.4) 20%,
-    rgba(15, 98, 254, 0.6) 50%,
-    rgba(15, 98, 254, 0.4) 80%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease, width 0.3s ease;
-  pointer-events: none;
-  filter: blur(3px);
-  z-index: 1;
-}
-
-.input-container:has(.watson-input:focus-within) .input-glow,
-.input-container:hover .input-glow {
-  opacity: 1;
-  width: 70%;
+  display: none !important;
 }
 
 @keyframes gentle-pulse {
@@ -623,7 +599,7 @@
 .watson-input:has(input:focus-visible) {
   outline: none !important;
   border-color: var(--cds-border-strong) !important; /* darker border */
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2) !important; /* subtle dark ring */
+  box-shadow: none !important; /* no inner shadow */
 }
 
 /* Keep the input itself from showing any default outline */
