@@ -18,9 +18,9 @@ All notable changes to the AI Chatbot project.
 
 ### 🤖 AI Model Update
 
-#### Upgraded to Granite 4:micro-h
+#### Upgraded to Granite 4:tiny-h
 - **OLD**: granite3.3:8b
-- **NEW**: granite4:micro-h
+- **NEW**: granite4:tiny-h
 - **BENEFITS**: 
   - Smaller model size (micro variant)
   - Faster responses
@@ -32,13 +32,13 @@ All notable changes to the AI Chatbot project.
 #### setup.sh
 - ✅ Automatically installs all dependencies (Java, Node.js, Maven, Ollama, Git)
 - ✅ Detects OS (macOS, Ubuntu, Debian, CentOS, RHEL, Fedora)
-- ✅ Pulls granite4:micro-h model
+- ✅ Pulls granite4:tiny-h model
 - ✅ Validates installation
 - ✅ No longer creates .env file
 - ✅ Fixed GitHub token validation
 
 #### restart.sh & start.sh
-- ✅ Updated model check to granite4:micro-h
+- ✅ Updated model check to granite4:tiny-h
 - ✅ Removed .env file references
 - ✅ Removed GITHUB_TOKEN environment variable checks
 - ✅ Configuration now read from application.properties
@@ -55,7 +55,7 @@ All notable changes to the AI Chatbot project.
 #### Key Changes
 - All references to .env removed
 - GitHub token configuration points to application.properties
-- Model updated to granite4:micro-h throughout
+- Model updated to granite4:tiny-h throughout
 - Clearer setup instructions
 
 ### 🎯 What Users Need to Do
@@ -79,9 +79,9 @@ cd ai-chatbot
 #### For Existing Users
 1. **Delete .env file** (if exists): `rm -f .env`
 2. **Update application.properties**:
-   - Ensure `spring.ai.ollama.chat.model=granite4:micro-h`
-   - Ensure `spring.ai.ollama.embedding.model=granite4:micro-h`
-3. **Pull new model**: `ollama pull granite4:micro-h`
+  - Ensure `spring.ai.ollama.chat.model=granite4:tiny-h`
+  - Ensure `spring.ai.ollama.embedding.model=granite4:tiny-h`
+3. **Pull new model**: `ollama pull granite4:tiny-h`
 4. **Restart**: `./restart.sh`
 
 ### 🚀 Benefits of These Changes
@@ -108,8 +108,8 @@ cd ai-chatbot
 ```properties
 # Ollama Configuration
 spring.ai.ollama.base-url=http://localhost:11434
-spring.ai.ollama.chat.model=granite4:micro-h
-spring.ai.ollama.embedding.model=granite4:micro-h
+spring.ai.ollama.chat.model=granite4:tiny-h
+spring.ai.ollama.embedding.model=granite4:tiny-h
 
 # GitHub Configuration
 repo.github.baseurl=https://github.ibm.com/api/v3
@@ -123,7 +123,7 @@ server.port=8080
 
 #### "Model not found" error
 ```bash
-ollama pull granite4:micro-h
+ollama pull granite4:tiny-h
 ```
 
 #### "GitHub token not configured" warning

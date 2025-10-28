@@ -2,7 +2,7 @@
 
 ## Project Overview
 - [x] Clarify Project Requirements - Full-stack AI chatbot with Spring Boot backend and React fronte4. ✅ Implements **advanced RAG system** for huge repositories
-5. ✅ Uses **Ollama granite4:micro-h** for high-quality responses
+5. ✅ Uses **Ollama granite4:tiny-h** for high-quality responses
 6. ✅ Is **100% production-ready** with comprehensive error handling
 7. ✅ Delivers **fast responses within seconds**
 8. ✅ Provides **accurate responses** based on repository content[x] Scaffold the Project - Created Spring Boot backend and React frontend structure  
@@ -20,7 +20,7 @@ This is a complete, production-level AI chatbot system with advanced RAG capabil
 ## ✨ Key Features Delivered
 
 ### 🤖 Advanced AI Integration
-- **Ollama Integration**: Direct integration with Ollama granite4:micro-h model
+- **Ollama Integration**: Direct integration with Ollama granite4:tiny-h model
 - **Sub-second Responses**: Optimized for fast response times
 - **Context-Aware**: RAG system provides relevant context from repository files
 - **100% Accuracy**: Responses based on actual repository content
@@ -107,7 +107,7 @@ ai-chatbot/
 
 # Update .env with your GitHub token
 # Start Ollama: ollama serve
-# Pull model: ollama pull granite4:micro-h
+# Pull model: ollama pull granite4:tiny-h
 ```
 
 ### 2. Launch Application
@@ -128,7 +128,7 @@ All configuration is in `backend/src/main/resources/application.properties`:
 ```properties
 # Ollama Configuration
 spring.ai.ollama.base-url=http://localhost:11434
-spring.ai.ollama.chat.model=granite4:micro-h
+spring.ai.ollama.chat.model=granite4:tiny-h
 
 # GitHub Repository (Update for your repo)
 repo.github.baseurl=https://github.ibm.com/api/v3

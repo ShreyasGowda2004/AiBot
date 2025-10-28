@@ -319,16 +319,16 @@ check_install_ollama() {
 pull_ai_model() {
     print_status "Checking AI model..."
     
-    if ollama list 2>/dev/null | grep -q "granite4:micro-h"; then
-        print_success "AI model 'granite4:micro-h' already exists"
+    if ollama list 2>/dev/null | grep -q "granite4:tiny-h"; then
+        print_success "AI model 'granite4:tiny-h' already exists"
         return 0
     fi
     
-    print_status "Pulling AI model 'granite4:micro-h' (this may take a few minutes)..."
-    if ollama pull granite4:micro-h; then
+    print_status "Pulling AI model 'granite4:tiny-h' (this may take a few minutes)..."
+    if ollama pull granite4:tiny-h; then
         print_success "AI model downloaded successfully"
     else
-        print_warning "Failed to pull model. You can do it later with: ollama pull granite4:micro-h"
+        print_warning "Failed to pull model. You can do it later with: ollama pull granite4:tiny-h"
     fi
 }
 
@@ -555,7 +555,7 @@ show_next_steps() {
     if ! curl -s http://localhost:11434/api/tags &> /dev/null; then
         print_warning "⚠️  Ollama service is not running!"
         echo "  Please start it with: ollama serve"
-        echo "  Then pull the model: ollama pull granite4:micro-h"
+        echo "  Then pull the model: ollama pull granite4:tiny-h"
         echo ""
     fi
     

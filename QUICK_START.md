@@ -64,7 +64,7 @@ The `setup.sh` script automatically:
 4. ✅ Installs Maven (if missing)
 5. ✅ Installs Ollama (if missing)
 6. ✅ Installs Git (if missing)
-7. ✅ Downloads AI model (granite4:micro-h)
+7. ✅ Downloads AI model (granite4:tiny-h)
 8. ✅ Builds backend (Spring Boot)
 9. ✅ Installs frontend dependencies (React)
 10. ✅ Validates everything works
@@ -166,7 +166,7 @@ ollama serve &
 curl http://localhost:11434/api/tags
 
 # Pull model if missing
-ollama pull granite4:micro-h
+ollama pull granite4:tiny-h
 ```
 
 ### Permission Denied?
@@ -225,7 +225,7 @@ After successful setup:
    ```bash
    java -version    # Should show 17+
    node --version   # Should show 18+
-   ollama list      # Should show granite4:micro-h
+   ollama list      # Should show granite4:tiny-h
    ```
 
 3. **Review docs**:

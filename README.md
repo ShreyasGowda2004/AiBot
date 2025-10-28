@@ -41,7 +41,7 @@ That's it! The setup script will automatically install:
 - ✅ Node.js 18+ (if not present)
 - ✅ Maven (if not present)
 - ✅ Ollama (if not present)
-- ✅ AI Model (granite4:micro-h)
+- ✅ AI Model (granite4:tiny-h)
 - ✅ All project dependencies
 
 ## 💻 System Requirements
@@ -132,7 +132,7 @@ curl -fsSL https://ollama.ai/install.sh | sh
 ollama serve &
 
 # Pull AI model
-ollama pull granite4:micro-h
+ollama pull granite4:tiny-h
 ```
 
 #### 4. Build Backend
@@ -230,7 +230,7 @@ cd ..
 curl -fsSL https://ollama.ai/install.sh | sh
 
 # Pull the Granite model
-ollama pull granite4:micro-h
+ollama pull granite4:tiny-h
 
 # Start Ollama server (runs on http://localhost:11434)
 ollama serve
@@ -302,7 +302,7 @@ All configuration is done in `backend/src/main/resources/application.properties`
 ```properties
 # Ollama Configuration
 spring.ai.ollama.base-url=http://localhost:11434
-spring.ai.ollama.chat.model=granite4:micro-h
+spring.ai.ollama.chat.model=granite4:tiny-h
 
 # GitHub Repository (Update for your repo)
 repo.github.baseurl=https://github.ibm.com/api/v3

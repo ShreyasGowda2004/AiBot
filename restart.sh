@@ -70,11 +70,11 @@ check_ollama() {
 # Check if required model is available
 check_model() {
     echo "🤖 Checking for Granite model..."
-    if ollama list | grep -q "granite4:micro-h"; then
-        echo "✅ Granite 4:micro-h model found"
+    if ollama list | grep -q "granite4:tiny-h"; then
+        echo "✅ Granite 4:tiny-h model found"
     else
-        echo "📥 Downloading Granite 4:micro-h model..."
-        ollama pull granite4:micro-h
+        echo "📥 Downloading Granite 4:tiny-h model..."
+        ollama pull granite4:tiny-h
     fi
 }
 

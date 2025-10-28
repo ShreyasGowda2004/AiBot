@@ -45,7 +45,7 @@ nano .env  # or use any text editor
 - **RAM**: 8GB minimum, 16GB recommended for optimal performance
 - **Storage**: 10GB free space
   - ~2GB for dependencies
-  - ~4-6GB for AI model (granite4:micro-h)
+   - ~4-6GB for AI model (granite4:tiny-h)
   - ~2GB for application and build artifacts
 - **Network**: Broadband internet for initial setup and GitHub API access
 
@@ -78,7 +78,7 @@ nano .env  # or use any text editor
 4. ✅ Configures environment
 5. ✅ Builds backend (Spring Boot)
 6. ✅ Installs frontend dependencies (React)
-7. ✅ Pulls AI model (granite4:micro-h)
+7. ✅ Pulls AI model (granite4:tiny-h)
 8. ✅ Validates setup
 9. ✅ Shows next steps
 
@@ -152,7 +152,7 @@ ollama serve &
 sleep 5
 
 # Pull AI model (this takes time - ~4-6GB download)
-ollama pull granite4:micro-h
+ollama pull granite4:tiny-h
 ```
 
 #### Build Project
@@ -221,7 +221,7 @@ nohup ollama serve > /dev/null 2>&1 &
 sleep 5
 
 # Pull AI model
-ollama pull granite4:micro-h
+ollama pull granite4:tiny-h
 ```
 
 #### Build Project
@@ -277,7 +277,7 @@ nohup ollama serve > /dev/null 2>&1 &
 sleep 5
 
 # Pull AI model
-ollama pull granite4:micro-h
+ollama pull granite4:tiny-h
 ```
 
 #### Build Project
@@ -355,8 +355,8 @@ curl http://localhost:11434/api/tags
 # Expected: JSON response with models list
 
 # Check AI model
-ollama list | grep granite4:micro-h
-# Expected: granite4:micro-h listed
+ollama list | grep granite4:tiny-h
+# Expected: granite4:tiny-h listed
 ```
 
 ### Test Application
@@ -483,8 +483,8 @@ npm --version
 ollama list
 
 # Remove and reinstall model
-ollama rm granite4:micro-h
-ollama pull granite4:micro-h
+ollama rm granite4:tiny-h
+ollama pull granite4:tiny-h
 
 # Check disk space
 df -h
